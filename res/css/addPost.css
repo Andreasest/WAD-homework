@@ -1,0 +1,35 @@
+:root{--header:#d9d9d9;--panel:#e9e9e9;--ink:#222;--muted:#666;--btn:#1e4d8a;--btn-ink:#fff;--hover:#cfcfcf}
+*{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+body{margin:0;color:var(--ink);background:#fff}
+.header{margin:16px;background:var(--header);border-radius:14px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
+.nav{display:flex;gap:8px}
+.nav a{padding:6px 10px;border-radius:6px;text-decoration:none;color:#000}
+.nav a:hover{background:var(--hover)}
+.nav a.active{background:#cfcfcf}
+.nav a.active:hover{background:var(--hover)}
+.pfp{width:34px;height:34px;border-radius:50%;object-fit:cover}
+.main{display:flex;justify-content:center;align-items:flex-start;padding:20px}
+.post{width:min(460px,92vw);background:var(--panel);border-radius:16px;padding:18px 18px 20px}
+.post-header{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.post-form{display:flex;flex-direction:column;gap:12px}
+.post-form label{font-weight:600}
+#createForm{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:12px;align-items:flex-start}
+.row>label{width:110px;color:var(--muted);font-weight:600;line-height:1.2}
+textarea,input[type="file"]{font:inherit;color:inherit}
+textarea{height:120px;resize:vertical;width:100%;border:1px solid #cfcfcf;border-radius:6px;padding:8px;background:#fff}
+textarea::placeholder{opacity:.6}
+.filewrap{width:100%}
+input[type="file"]{width:100%;padding:6px;border:1px solid #a7a7a7;background:#d0d0d0;border-radius:4px}
+.filewrap+small{color:#777}
+.row~.actions{margin-top:4px}
+.actions{display:flex;justify-content:center;gap:.5rem}
+.btn{background:var(--btn);color:var(--btn-ink);border:none;border-radius:6px;padding:10px 16px;font-weight:700;cursor:pointer}
+.btn.ghost{background:transparent;color:#111;border:1px solid #ccc}
+.btn:focus{outline:2px solid #000;outline-offset:2px}
+.note{margin:4px 0 0 122px;color:#777;font-size:12px}
+@media (max-width:520px){
+  .row{flex-direction:column}
+  .row>label{width:auto}
+  .note{margin-left:0}
+}

@@ -26,4 +26,19 @@ export default {
   display: flex;
   gap: 10px;
 }
+
+.nav > a {
+  padding: 10px 15px;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  color: black;
+  font-size: 0.99em;
+}
+
+.nav a:hover {
+  background-color: #7ebeb6;
+  border-radius: 5px;
+  color: white;
+}
 </style>

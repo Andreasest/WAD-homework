@@ -1,14 +1,41 @@
 <template>
   <div class="home">
-    <h1>This is the home page</h1>
+    <button>Reset likes</button>
+    <Post v-for="post in allPosts" :key="post.id" :post="post" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import { mapActions, mapGetters } from "vuex";
+import Post from "@/components/Post.vue";
 
 export default {
   name: "HomeView",
-  components: {},
+  components: {
+    Post,
+  },
+  computed: {
+    allPosts() {
+      return this.$store.getters.allPosts;
+    },
+  },
+  created() {
+    this.loadPosts();
+  },
+  methods: {
+    loadPosts() {
+      this.$store.dispatch("loadPosts");
+    },
+  },
 };
 </script>
+
+<style>
+.home {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+</style>

@@ -29,6 +29,11 @@ export default createStore({
         post.likes += 1;
       }
     },
+    resetLikes(state) {
+      state.posts.forEach(post => {
+        post.likes = 0;
+      });
+    },
   },
   actions: {
     loadPosts({ commit }) {
@@ -38,6 +43,9 @@ export default createStore({
     },
     likePost({ commit }, postId) {
       commit("incrementLikes", postId);
+    },
+    resetAllLikes({ commit }) {
+      commit("resetLikes");
     },
   },
   modules: {},

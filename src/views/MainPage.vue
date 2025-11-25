@@ -23,9 +23,9 @@ export default {
     this.loadPosts();
   },
   methods: {
-    ...mapActions(["loadPosts", "likePost"]),
+    ...mapActions(["loadPosts", "likePost", "resetAllLikes"]),
     resetLikes() {
-      this.$store.dispatch("loadPosts");
+      this.resetAllLikes();
     },
   },
 };

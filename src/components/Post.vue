@@ -20,8 +20,8 @@
 
     <p class="caption">{{ post.caption }}</p>
     <div class="post-header">
-      <Button class="like-button">👍</Button>
-      <p>0 Likes</p>
+      <button class="like-button" @click="likePost">👍</button>
+      <p>{{ post.likes }} Likes</p>
     </div>
   </div>
 </template>
@@ -31,6 +31,11 @@ export default {
   name: "Post",
   props: {
     post: Object,
+  },
+  methods: {
+    likePost() {
+      this.$emit('like-post', this.post.id);
+    },
   },
 };
 </script>

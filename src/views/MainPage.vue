@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <button>Reset likes</button>
-    <Post v-for="post in allPosts" :key="post.id" :post="post" />
+    <button @click="resetLikes">Reset likes</button>
+    <Post v-for="post in allPosts" :key="post.id" :post="post" @like-post="likePost" />
   </div>
 </template>
 
@@ -23,7 +23,8 @@ export default {
     this.loadPosts();
   },
   methods: {
-    loadPosts() {
+    ...mapActions(["loadPosts", "likePost"]),
+    resetLikes() {
       this.$store.dispatch("loadPosts");
     },
   },

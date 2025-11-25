@@ -86,7 +86,9 @@ export default {
       this.attemptedSubmit = true;
       this.success = false;
       if (this.passwordValid) {
+        this.attemptedSubmit = false;
         this.success = true;
+        this.$router.push('/');
       }
     },
   },

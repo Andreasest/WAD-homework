@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <p>Copyright ourGroup inc 2025</p>
+    <p>© 2025 CampusFeed</p>
   </footer>
 </template>
 
@@ -15,7 +15,10 @@ export default {
   text-align: center;
   background-color: darkgray;
   border-radius: 7px;
-  bottom: 0;
   padding: 0.5em;
+}
+.footer p {
+  margin: 0;
+  font-weight: 600;
 }
 </style>

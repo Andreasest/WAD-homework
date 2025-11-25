@@ -3,49 +3,47 @@ import postsData from "../data/posts.json";
 
 export default createStore({
   state: {
-    posts: postsData.map(post => ({ ...post, likes: 0 })),
+    posts: [],
   },
   getters: {
-    allPosts: (state) => {
-      return state.posts.map((post) => {
-        return {
-          id: post.id,
-          caption: post.caption,
-          author: post.author,
-          date: post.date,
-          image: post.image,
-          likes: post.likes,
-        };
-      });
-    },
+    allPosts: (state) => state.posts,
+    postById:
+      (state) =>
+      (id) =>
+        state.posts.find((post) => post.id === id),
   },
   mutations: {
     setPosts(state, posts) {
       state.posts = posts;
     },
-    incrementLikes(state, postId) {
-      const post = state.posts.find((post) => post.id === postId);
+    incrementPostLikes(state, postId) {
+      const post = state.posts.find((p) => p.id === postId);
       if (post) {
         post.likes += 1;
       }
     },
-    resetLikes(state) {
-      state.posts.forEach(post => {
-        post.likes = 0;
-      });
+    resetAllLikes(state) {
+      state.posts = state.posts.map((post) => ({
+        ...post,
+        likes: 0,
+      }));
     },
   },
   actions: {
     loadPosts({ commit }) {
       setTimeout(() => {
-        commit("setPosts", postsData.map(post => ({ ...post, likes: 0 })));
+        const postsWithLikes = postsData.map((post) => ({
+          ...post,
+          likes: 0,
+        }));
+        commit("setPosts", postsWithLikes);
       }, 1000);
     },
     likePost({ commit }, postId) {
-      commit("incrementLikes", postId);
+      commit("incrementPostLikes", postId);
     },
-    resetAllLikes({ commit }) {
-      commit("resetLikes");
+    resetLikes({ commit }) {
+      commit("resetAllLikes");
     },
   },
   modules: {},

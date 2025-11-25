@@ -1,5 +1,5 @@
 <template>
-  <div class="post">
+  <article v-if="post" class="post">
     <div class="post-header">
       <img
         src="https://www.shutterstock.com/image-vector/user-profile-icon-vector-avatar-600nw-2558760599.jpg"
@@ -10,7 +10,6 @@
       <p class="date">{{ post.date }}</p>
     </div>
 
-    <!--TODO Post image -->
     <img
       v-if="post.image"
       :src="post.image"
@@ -19,23 +18,37 @@
     />
 
     <p class="caption">{{ post.caption }}</p>
-    <div class="post-header">
-      <button class="like-button" @click="likePost">👍</button>
-      <p>{{ post.likes }} Likes</p>
+    <div class="post-footer">
+      <button class="like-button" type="button" @click="likePost(postId)">
+        👍
+      </button>
+      <p class="likes">{{ likeLabel }}</p>
     </div>
-  </div>
+  </article>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "Post",
   props: {
-    post: Object,
+    postId: {
+      type: Number,
+      required: true,
+    },
+  },
+  computed: {
+    post() {
+      return this.$store.getters.postById(this.postId);
+    },
+    likeLabel() {
+      const count = this.post?.likes ?? 0;
+      return `${count} ${count === 1 ? "like" : "likes"}`;
+    },
   },
   methods: {
-    likePost() {
-      this.$emit('like-post', this.post.id);
-    },
+    ...mapActions(["likePost"]),
   },
 };
 </script>
@@ -44,29 +57,31 @@ export default {
 .post {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 500px;
+  gap: 0.25em;
+  width: min(500px, 90%);
   background-color: rgb(234, 232, 232);
   border-radius: 5px;
   padding: 10px;
-  margin: 1em auto;
+  margin: 0 auto;
 }
-
 .post-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-
-.post-header + .post-image {
-  margin-top: 10px;
-}
-
 .post-image {
   width: 100%;
   height: auto;
+  margin-top: 10px;
 }
-
+.post-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.caption {
+  margin: 0.5rem 0;
+}
 .like-button {
   font-size: 2em;
   border: none;
@@ -74,9 +89,12 @@ export default {
   cursor: pointer;
   align-self: flex-start;
 }
-
 .like-button:hover {
   transform: scale(1.2);
+}
+.likes {
+  margin: 0;
+  font-weight: 600;
 }
 .pfp {
   max-height: 40px;
@@ -84,9 +102,5 @@ export default {
   width: 40px;
   border-radius: 50%;
 }
-
-.pfp:hover {
-  opacity: 80%;
-  transform: scale(1.1);
-}
 </style>
+

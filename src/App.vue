@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-    <Header />
-    <main class="main">
-      <router-view />
-    </main>
-    <Footer />
+    <div class="page-shell">
+      <Header />
+      <main class="main">
+        <router-view />
+      </main>
+      <Footer />
+    </div>
   </div>
 </template>
 
@@ -22,19 +24,35 @@ export default {
 </script>
 
 <style>
-body,
-#app {
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #f3f3f3;
+}
+#app {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.page-shell {
+  width: min(1000px, 100%);
   min-height: 100vh;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
 }
 .main {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto;
-  gap: 1em;
+  gap: 1rem;
 }
 </style>

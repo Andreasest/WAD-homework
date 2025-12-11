@@ -39,6 +39,10 @@ nav {
 nav a {
   font-weight: bold;
   color: #2c3e50;
+  transition: 0.3s;
+}
+nav a:hover {
+  color: #002aff96;
 }
 
 nav a.router-link-exact-active {

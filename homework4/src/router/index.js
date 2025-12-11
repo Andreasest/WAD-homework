@@ -14,10 +14,16 @@ const routes = [
       import(/* webpackChunkName: "contact" */ "../views/ContactView.vue"),
   },
   {
+    path: "/posts/:id",
+    name: "post",
+    component: () =>
+      import(/* webpackChunkName: "post" */ "../views/PostView.vue"),
+  },
+  {
     path: "/login",
     name: "login",
     component: () =>
-      import(/* webpackChunkName: "contact" */ "../views/LoginView.vue"),
+      import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
   },
 ];
 

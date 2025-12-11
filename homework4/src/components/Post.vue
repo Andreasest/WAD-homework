@@ -1,5 +1,5 @@
 <template>
-  <div class="post">
+  <div class="post" @click="goToPost">
     <p class="date">
       {{
         new Date(post.date).toLocaleDateString("en-US", {
@@ -20,6 +20,11 @@ export default {
   props: {
     post: { type: Object, required: true },
   },
+  methods: {
+    goToPost() {
+      this.$router.push(`/posts/${this.post.id}`);
+    },
+  },
 };
 </script>
 
@@ -34,6 +39,7 @@ export default {
   border-radius: 5px;
   padding: 1em;
   margin: 0 auto;
+  cursor: pointer;
 }
 .date {
   text-align: right;

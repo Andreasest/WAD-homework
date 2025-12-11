@@ -11,7 +11,6 @@
 <script>
 // @ is an alias to /src
 import Post from "@/components/Post.vue";
-import auth from "../auth";
 
 export default {
   name: "HomeView",

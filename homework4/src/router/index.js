@@ -25,6 +25,17 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
   },
+  {
+    path: "/addPost",
+    name: "addPost",
+    component: () =>
+      import(/* webpackChunkName: "post" */ "../views/AddPostView.vue"),
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "home",
+    component: HomeView,
+  },
 ];
 
 const router = createRouter({

@@ -1,8 +1,7 @@
 <template>
   <div class="home">
+    <h1>Welcome to the home page</h1>
     <div class="post-list">
-      <h1>Welcome to the home page</h1>
-
       <Post v-for="post in posts" :key="post.id" :post="post" />
     </div>
     <div class="buttons">
@@ -33,6 +32,24 @@ export default {
     addPost() {
       this.$router.push("/addPost");
     },
+    deleteAllPosts() {
+      fetch("http://localhost:3000/api/posts", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          console.log(response.data);
+          // redirect to /allposts view
+          this.posts = [];
+        })
+        .catch((e) => {
+          console.log(e);
+          console.log("error");
+        });
+    },
+    logOut() {},
   },
 };
 </script>
@@ -42,6 +59,7 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  gap: 1em;
 }
 .post-list {
   display: flex;

@@ -1,74 +1,58 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link>
-    <router-link to="/contacts">Contacts</router-link>
-    <router-link to="/login">Login</router-link>
-  </nav>
-  <div class="content">
-    <router-view />
+  <div id="app">
+    <div class="page-shell">
+      <Header />
+      <main class="main">
+        <router-view />
+      </main>
+      <Footer />
+    </div>
   </div>
-  <footer class="footer">
-    <p>© Copyright</p>
-  </footer>
 </template>
 
+<script>
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
+
+export default {
+  name: "App",
+  components: {
+    Header,
+    Footer,
+  },
+};
+</script>
+
 <style>
-html,
-body,
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
 }
-
-nav {
-  display: flex;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  justify-content: center;
-  padding: 30px;
-  gap: 1em;
-  background-color: darkgray;
-  border-radius: 7px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-  transition: 0.3s;
-}
-nav a:hover {
-  color: #002aff96;
-}
-
-nav a.router-link-exact-active {
-  color: #002aff96;
-}
-.content {
-  position: absolute;
-  top: 78px;
-  bottom: 40px;
-  left: 0;
-  right: 0;
-  overflow-y: auto;
-}
-.footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-  background-color: darkgray;
-  border-radius: 7px;
-  padding: 0.5em;
-  flex-shrink: 0;
-}
-.footer p {
+body {
   margin: 0;
-  font-weight: 600;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f3f3f3;
+}
+#app {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.page-shell {
+  width: min(1000px, 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 </style>

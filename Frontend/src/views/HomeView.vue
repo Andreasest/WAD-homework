@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <h1>Welcome to the home page</h1>
+    <button @click="logOut">Logout</button>
     <div class="post-list">
       <Post v-for="post in posts" :key="post.id" :post="post" />
     </div>
@@ -23,7 +24,7 @@ export default {
     };
   },
   mounted() {
-    fetch("http://localhost:3000/api/posts/")
+    fetch("http://localhost:3000/api/posts/", {credentials: "include"}) 
       .then((response) => response.json())
       .then((data) => (this.posts = data))
       .catch((err) => console.log(err.message));
@@ -35,6 +36,7 @@ export default {
     deleteAllPosts() {
       fetch("http://localhost:3000/api/posts", {
         method: "DELETE",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -49,7 +51,21 @@ export default {
           console.log("error");
         });
     },
-    logOut() {},
+    logOut() {
+      fetch("http://localhost:3000/auth/logout", {
+          credentials: 'include', //  Don't forget to specify this if you need cookies
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        console.log('jwt removed');
+        this.$router.push("/login");
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log("error logout");
+      });
+    },
   },
 };
 </script>

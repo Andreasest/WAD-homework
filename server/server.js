@@ -96,6 +96,33 @@ app.delete("/api/posts", async (req, res) => {
   }
 });
 
+app.get('/auth/authenticate', async(req, res) => {
+    console.log('authentication request has been arrived');
+    const token = req.cookies.jwt;
+    let authenticated = false;
+    try {
+        if (token) {
+            await jwt.verify(token, secret, (err) => {
+                if (err) {
+                    console.log(err.message);
+                    console.log('token is not verified');
+                    res.send({ "authenticated": authenticated });
+                } else {
+                    console.log('author is authinticated');
+                    authenticated = true;
+                    res.send({ "authenticated": authenticated });
+                }
+            })
+        } else {
+            console.log('author is not authinticated');
+            res.send({ "authenticated": authenticated });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(400).send(err.message);
+    }
+});
+
 app.post("/auth/signup", async (req, res) => {
   try {
     console.log("a signup request has arrived");

@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import auth from "../auth";
 export default {
   name: "LoginView",
   data() {
@@ -52,6 +53,16 @@ export default {
       error: null,
       success: null,
     };
+  },
+  async mounted() {
+    // check if already logged in
+    const isAuth = await auth.authenticated();
+    if (isAuth) {
+      await fetch("http://localhost:3000/auth/logout", {
+        credentials: "include",
+      });
+      console.log("logged out");
+    }
   },
   methods: {
     async handleLogin() {

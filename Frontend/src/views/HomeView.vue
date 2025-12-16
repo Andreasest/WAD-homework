@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>Welcome to the home page</h1>
-    <button @click="logOut">Logout</button>
+    <!-- <button @click="logOut">Logout</button> -->
     <div class="post-list">
       <Post v-for="post in posts" :key="post.id" :post="post" />
     </div>

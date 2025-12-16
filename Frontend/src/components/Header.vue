@@ -3,22 +3,41 @@
     <nav class="nav">
       <router-link to="/">Home</router-link>
       <router-link to="/contacts">Contacts</router-link>
-      <router-link to="/login">Login</router-link>
-      <router-link to="/signup">Signup</router-link>
+      <router-link v-if="!authResult" to="/login">Login</router-link>
+      <a v-if="authResult" href="#" @click.prevent="handleLogout">Logout</a>
     </nav>
-    <div class="profile-menu">
+    <!-- <div class="profile-menu">
       <img
         src="https://www.shutterstock.com/image-vector/user-profile-icon-vector-avatar-600nw-2558760599.jpg"
         alt="Profile"
         class="pfp"
       />
-    </div>
+    </div> -->
   </header>
 </template>
 
 <script>
+import auth from "../auth";
+
 export default {
   name: "Header",
+  data() {
+    return {
+      authResult: false,
+    };
+  },
+  async mounted() {
+    this.authResult = await auth.authenticated();
+  },
+  methods: {
+    async handleLogout() {
+      await fetch("http://localhost:3000/auth/logout", {
+        credentials: "include",
+      });
+      this.authResult = false;
+      this.$router.push("/login");
+    },
+  },
 };
 </script>
 

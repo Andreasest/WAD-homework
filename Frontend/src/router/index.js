@@ -1,19 +1,22 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import auth from "../auth";
+
+const requireAuth = async (to, from, next) => {
+  let authResult = await auth.authenticated();
+  if (!authResult) {
+    next("/login");
+  } else {
+    next();
+  }
+};
 
 const routes = [
   {
     path: "/",
     name: "home",
     component: HomeView,
-    beforeEnter: async(to, from, next) => {
-        let authResult = await auth.authenticated();
-        if (!authResult) {
-            next('/login')
-        } else {
-            next();
-        }
-    }
+    beforeEnter: requireAuth,
   },
   {
     path: "/contacts",
@@ -26,6 +29,7 @@ const routes = [
     name: "post",
     component: () =>
       import(/* webpackChunkName: "post" */ "../views/PostView.vue"),
+    beforeEnter: requireAuth,
   },
   {
     path: "/login",
@@ -44,11 +48,13 @@ const routes = [
     name: "addPost",
     component: () =>
       import(/* webpackChunkName: "post" */ "../views/AddPostView.vue"),
+    beforeEnter: requireAuth,
   },
   {
     path: "/:catchAll(.*)",
     name: "home",
     component: HomeView,
+    beforeEnter: requireAuth,
   },
 ];
 
